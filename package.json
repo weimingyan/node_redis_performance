@@ -1,0 +1,27 @@
+{
+  "name": "node_redis_performance",
+  "version": "1.0.0",
+  "description": "redis performance monitor application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weimingyan/node_redis_performance.git"
+  },
+  "keywords": [
+    "redis",
+    "performance",
+    "monitor"
+  ],
+  "author": "weiming.yan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weimingyan/node_redis_performance/issues"
+  },
+  "homepage": "https://github.com/weimingyan/node_redis_performance#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}

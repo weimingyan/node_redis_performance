@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  script(src='/javascripts/google_chart_loader.js')
+  script(src='/javascripts/trend_chart.js')
+  script.
+   document.addEventListener('DOMContentLoaded', drawChart); 
+  h1 Welcome to redis performance monitor
+  br/
+  div(id='memory_usage')
+  br/
+  div

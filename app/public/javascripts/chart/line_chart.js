@@ -29,7 +29,8 @@ function drawChart() {
 
     var socket = io();  
     socket.on('mu_data_update', function(data){
-      mu_data.addRow([[data.hours, data.minutes, data.seconds], data.value]);
+      console.log('get the data:'+data.value);
+      mu_data.addRow([[data.hours, data.minutes, data.seconds], (data.value/1024)]);
       mu_chart.draw(mu_data, mu_options);
     });
     

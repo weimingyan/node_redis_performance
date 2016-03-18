@@ -1,11 +1,12 @@
 extends layout
 
 block content
+  script(src='/javascripts/lib/jquery-1.12.1.js')
   script(src='/javascripts/lib/socket.io.js')
   script(src='/javascripts/lib/google_chart_loader.js')
-  script(src='/javascripts/chart/trend_chart.js')
+  script(src='/javascripts/chart/line_chart.js')
   script.
-   document.addEventListener('DOMContentLoaded', drawChart); 
+    document.addEventListener('DOMContentLoaded', drawChart); 
   h1 Welcome to redis performance monitor
   br/
   div(id='memory_usage')

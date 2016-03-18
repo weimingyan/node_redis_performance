@@ -9,6 +9,10 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var DataSource = require('./redis/redis_monitor');
+var dataSource = new DataSource();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +35,33 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+//initial socket io
+var numOfUsers = 0;
+io.on('connection', function(socket){
+  numOfUsers++;
+  _io_emit();
+  socket.on('disconnect', function(){
+    numOfUsers--;
+  });
+});
+
+function _io_emit() {
+  if(numOfUsers >0) {
+    console.log('fetch data');
+    dataSource.fetch('memory', 'used_memory', function(data) {
+      console.log('got data:'+ data);
+      var current = new Date();
+      io.emit('mu_data_update', {
+        hours: current.getHours(), 
+        minutes: current.getMinutes(), 
+        seconds: current.getSeconds(), 
+        value: data}); 
+      console.log('sending data to front end');
+      setTimeout(_io_emit, 5000);
+    });
+  }
+}
 
 // error handlers
 
@@ -56,5 +87,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
+http.listen(3000, function(){
+    console.log('listening on *:3000');
+});
 module.exports = app;
